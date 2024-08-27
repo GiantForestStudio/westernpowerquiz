@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>서부발전 온라인 퀴즈</title>
+  <style>body { background-color: black; }</style></head>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
+    <script src="Build/WesternPower_WebQuiz.exe.loader.js"></script>
+    <script>
+      
+                function resizeCanvas() {
+                    var canvas = document.querySelector('#unity-canvas');
+                    var aspectRatio = 390 / 651;
+                    var newHeight = window.innerHeight;
+                    var newWidth = newHeight * aspectRatio;
+                    canvas.style.height = newHeight + 'px';
+                    canvas.style.width = newWidth + 'px';
+                    canvas.style.margin = '0 auto';
+                    canvas.style.display = 'block';
+                }
+
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    // Mobile device style: fill the whole browser client area with the game canvas:
+                    var meta = document.createElement('meta');
+                    meta.name = 'viewport';
+                    meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+                    document.getElementsByTagName('head')[0].appendChild(meta);
+
+                    var canvas = document.querySelector('#unity-canvas');
+                    canvas.style.width = '100%';
+                    canvas.style.height = '100%';
+                    canvas.style.position = 'fixed';
+
+                    document.body.style.textAlign = 'left';
+                } else {
+                    window.addEventListener('resize', resizeCanvas);
+                    resizeCanvas(); // 초기 크기 설정
+                }
+                
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/WesternPower_WebQuiz.exe.data",
+        frameworkUrl: "Build/WesternPower_WebQuiz.exe.framework.js",
+        codeUrl: "Build/WesternPower_WebQuiz.exe.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Giant Forest Game Studio",
+        productName: "WesternPower_WebQuiz",
+        productVersion: "0.240827",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+    </script>
+  </body>
+</html>
